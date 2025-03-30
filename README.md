@@ -18,6 +18,7 @@ Consider that this is not mandatory, you can use whatever you want. But for me t
 ### Before you start:
 I used this guide 
 >> https://www.circuitschools.com/interfacing-16x2-lcd-module-with-raspberry-pi-pico-with-and-without-i2c/
+
 to interface the Pico to the LCD, but follow whatever tutorial you pref
 
 ### What those script do:
