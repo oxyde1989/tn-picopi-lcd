@@ -16,12 +16,13 @@ Consider that this is not mandatory, you can use whatever you want. But for me t
 </ul>
 
 ### Before you start:
-I used this guide >> https://www.circuitschools.com/interfacing-16x2-lcd-module-with-raspberry-pi-pico-with-and-without-i2c/
+I used this guide 
+>> https://www.circuitschools.com/interfacing-16x2-lcd-module-with-raspberry-pi-pico-with-and-without-i2c/
 to interface the Pico to the LCD, but follow whatever tutorial you pref
 
 ### What those script do:
->> The  `main.py` put the Pico listening to the serial port of the USB where he get attacched, automatically. You can grab the correct one using `sudo dmesg | grep tty`
->> The `TN_Pico_LCD.py` contains some istruction to retrieve and manipulate data to show, most obtained via Truenas API.
+- The  `main.py` put the Pico listening to the serial port of the USB where he get attacched, automatically. You can grab the correct one using `sudo dmesg | grep tty`
+- The `TN_Pico_LCD.py` contains some istruction to retrieve and manipulate data to show, most obtained via Truenas API.
 
 Every 8s a new info will be displayed.
 
