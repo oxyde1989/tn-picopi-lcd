@@ -1,5 +1,7 @@
 import time, psutil, subprocess, argparse, os, sys, json
 
+##### V 0.01
+
 def get_midclt_data(method):
     try:
         midclt_output = subprocess.run(
@@ -27,7 +29,6 @@ def send_message(serial_port, message):
         with open(serial_port, "w") as ser:
             ser.write(message + "\n")
             ser.flush()
-        #print("msg sent")
         time.sleep(8)
     except Exception as e:
         print(f"Error: {e}")
