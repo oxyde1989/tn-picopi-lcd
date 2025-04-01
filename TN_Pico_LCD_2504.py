@@ -1,6 +1,4 @@
-import time, psutil, subprocess, argparse, os, sys, json
-
-##### V 0.01
+import time, subprocess, argparse, os, sys, json
 
 def get_midclt_data(method):
     try:
@@ -43,26 +41,33 @@ def get_cpu_temperature():
         print(f"Error: {e}")
     return "N/A"
 
-def get_cpu_usage_percent():
+def get_cpu_temperature():
     try:
-        return psutil.cpu_percent(interval=1)
+        output = subprocess.check_output(["sensors"]).decode()
+        for line in output.split("\n"):
+            if "Core 0" in line:
+                return line.split()[2].replace("°C", "")
     except Exception as e:
         print(f"Error: {e}")
-    return "N/A"   
+    return "N/A"
+
+def get_cpu_usage_percent():
+    try:
+        output = subprocess.check_output("top -b -n1 | grep 'Cpu(s)'", shell=True).decode()
+        usage = float(output.split('%')[0].split()[-1])
+        return round(100 - usage, 2) 
+    except Exception as e:
+        print(f"Error: {e}")
+    return "N/A"
 
 def get_total_ram():
     try:
-        return round(psutil.virtual_memory().total / (1024 * 1024 * 1024), 2)
+        output = subprocess.check_output("grep MemTotal /proc/meminfo", shell=True).decode()
+        total_kb = int(output.split()[1])
+        return round(total_kb / (1024 * 1024), 2)
     except Exception as e:
         print(f"Error: {e}")
-    return "N/A"      
-
-def get_total_ram_used():
-    try:
-        return round(psutil.virtual_memory().used / (1024 * 1024 * 1024), 2)
-    except Exception as e:
-        print(f"Error: {e}")
-    return "N/A"   
+    return "N/A" 
 
 def get_pool_status():
     try:
