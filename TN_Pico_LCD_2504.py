@@ -72,7 +72,7 @@ def get_total_ram_used():
 def get_pool_status():
     try:
         pools_data = get_midclt_data("pool.query")
-    except Exception as e: 
+    except Exception as e:
         print(f"Error: {e}")
         
     pools_info = []
