@@ -41,16 +41,6 @@ def get_cpu_temperature():
         print(f"Error: {e}")
     return "N/A"
 
-def get_cpu_temperature():
-    try:
-        output = subprocess.check_output(["sensors"]).decode()
-        for line in output.split("\n"):
-            if "Core 0" in line:
-                return line.split()[2].replace("°C", "")
-    except Exception as e:
-        print(f"Error: {e}")
-    return "N/A"
-
 def get_cpu_usage_percent():
     try:
         output = subprocess.check_output("top -b -n1 | grep 'Cpu(s)'", shell=True).decode()
@@ -68,6 +58,16 @@ def get_total_ram():
     except Exception as e:
         print(f"Error: {e}")
     return "N/A" 
+
+def get_total_ram_used():
+    try:
+        meminfo = subprocess.check_output("grep -E 'MemTotal|MemFree|Buffers|Cached' /proc/meminfo", shell=True).decode()
+        mem_values = {line.split(':')[0]: int(line.split()[1]) for line in meminfo.strip().split("\n")}
+        used_kb = mem_values['MemTotal'] - (mem_values['MemFree'] + mem_values['Buffers'] + mem_values['Cached'])
+        return round(used_kb / (1024 * 1024), 2)
+    except Exception as e:
+        print(f"Error: {e}")
+    return "N/A"
 
 def get_pool_status():
     try:
